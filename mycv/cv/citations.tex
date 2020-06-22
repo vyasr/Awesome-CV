@@ -1,0 +1,22 @@
+% Use a conditional to determine whether all publications go together or not.
+\ifdefined\combinepubs
+    \cvsection{Publications and Presentations}
+    \addbibresource{Publications.bib}
+    \addbibresource{Presentations.bib}
+    \nocite{*}
+    \printbibliography[heading=none]
+\else
+% Use the solution proposed here:
+% https://tex.stackexchange.com/questions/170316/nocite-for-single-bibdatasources-with-biblatex-biber
+    \begin{refsection}[Publications.bib]
+    \cvsection{Publications}
+    \nocite{*}
+    \printbibliography[heading=none]
+    \end{refsection}
+
+    \begin{refsection}[Presentations.bib]
+    \cvsection{Presentations}
+    \nocite{*}
+    \printbibliography[heading=none]
+    \end{refsection}
+\fi
