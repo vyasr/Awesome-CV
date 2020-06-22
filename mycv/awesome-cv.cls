@@ -26,32 +26,85 @@
 
 
 %-------------------------------------------------------------------------------
+%                Preloaded 3rd party packages
+%
+% Load any packages that are needed for option parsing (but nothing else to avoid
+% consuming their arguments).
+%-------------------------------------------------------------------------------
+
+% Needed for parsing key-value package options.
+\RequirePackage{kvoptions}
+% Needed to use \ifxetex-\else-\fi statement
+\RequirePackage{ifxetex}
+% Needed to use \if-\then-\else statement
+\RequirePackage{xifthen}
+
+%-------------------------------------------------------------------------------
 %                Class options
 %
 % (need to be done before the external package loading, for example because
 % we need \paperwidth, \paperheight and \@ptsize to be defined before loading
 % geometry and fancyhdr)
 %-------------------------------------------------------------------------------
-% Options for draft or final
-\DeclareOption{draft}{\setlength\overfullrule{5pt}}
-\DeclareOption{final}{\setlength\overfullrule{0pt}}
-% Inherit options of article
-\DeclareOption*{%
-  \PassOptionsToClass{\CurrentOption}{article}
-}
-% Add optional flag to include outdated entries.
+
+%%%% CODE WITH KVOPTIONS
+
 \newif\ifoutdated
 \outdatedfalse
-\DeclareOption{outdated}{
-  \outdatedtrue
-}
-% Add flag to determine whether publications and presentations should be combined.
+\newif\ifextended
+\extendedfalse
 \newif\ifcombinepubs
 \combinepubsfalse
-\DeclareOption{combinepubs}{
-  \combinepubstrue
+
+\SetupKeyvalOptions{
+    family=awesome,
+    prefix=awesome@,
 }
-\ProcessOptions\relax
+
+\DeclareBoolOption{outdated}
+\DeclareBoolOption{extended}
+\DeclareBoolOption{compact}
+\DeclareStringOption[none]{citations}[all]
+
+\DeclareDefaultOption{
+  \PassOptionsToClass{\CurrentOption}{article}
+  }
+
+\ProcessKeyvalOptions*
+
+% Define conditionals without ampersands for safe internal use without makeatletter.
+\ifthenelse{\boolean{awesome@outdated}}{\outdatedtrue}{}
+\ifthenelse{\boolean{awesome@extended}}{\extendedtrue}{}
+\newcommand*{\citations}{\awesome@citations}
+
+%%%% ORIGINAL CODE
+
+% % Options for draft or final
+% \DeclareOption{draft}{\setlength\overfullrule{5pt}}
+% \DeclareOption{final}{\setlength\overfullrule{0pt}}
+% % Inherit options of article
+% \DeclareOption*{%
+  % \PassOptionsToClass{\CurrentOption}{article}
+% }
+% % Add optional flag to include outdated entries.
+% \newif\ifoutdated
+% \outdatedfalse
+% \DeclareOption{outdated}{
+  % \outdatedtrue
+% }
+% % Add optional flag to include extended output.
+% \newif\ifextended
+% \extendedtrue
+% \DeclareOption{resume}{
+  % \extendedfalse
+% }
+% % Add flag to determine whether publications and presentations should be combined.
+% \newif\ifcombinepubs
+% \combinepubsfalse
+% \DeclareOption{combinepubs}{
+  % \combinepubstrue
+% }
+% \ProcessOptions\relax
 \LoadClass{article}
 
 
@@ -70,10 +123,6 @@
 \RequirePackage{fancyhdr}
 % Needed to manage colors
 \RequirePackage{xcolor}
-% Needed to use \ifxetex-\else-\fi statement
-\RequirePackage{ifxetex}
-% Needed to use \if-\then-\else statement
-\RequirePackage{xifthen}
 % Needed to use a toolbox of programming tools
 \RequirePackage{etoolbox}
 % Needed to change line spacing in specific environment
@@ -214,6 +263,7 @@
 
 % For elements of entry
 \newcommand*{\entrytitlestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
+\newcommand*{\entrytitlestylecompact}[1]{{\fontsize{10pt}{1em}\bodyfont\scshape\color{graytext} #1}}
 \newcommand*{\entrypositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\scshape\color{graytext} #1}}
 \newcommand*{\entrydatestyle}[1]{{\fontsize{8pt}{1em}\bodyfontlight\slshape\color{graytext} #1}}
 \newcommand*{\entrylocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{awesome} #1}}
@@ -414,8 +464,8 @@
 \newcommand{\acvHeaderAfterQuoteSkip}{5mm}
 
 % Others
-\newcommand{\acvSectionTopSkip}{3mm}
-\newcommand{\acvSectionContentTopSkip}{2.5mm}
+\ifthenelse{\boolean{awesome@compact}}{\newcommand{\acvSectionTopSkip}{0mm}}{\newcommand{\acvSectionTopSkip}{3mm}}
+\ifthenelse{\boolean{awesome@compact}}{\newcommand{\acvSectionContentTopSkip}{0mm}}{\newcommand{\acvSectionContentTopSkip}{2.5mm}}
 
 
 %-------------------------------------------------------------------------------
@@ -624,22 +674,39 @@
 \newcommand*{\cventry}[5]{%
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
-  % Need to put this ifthen outside the tabular because multicolumn doesn't play nice.
-  \ifnotempty{#5}
-  {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{10cm} C{\textwidth - 14.5cm} R{4.5cm}}
-    \ifnotempty{#1}
-    {\entrytitlestyle{#2} & & \entrylocationstyle{#3} \\
-    \entrypositionstyle{#1} & &\entrydatestyle{#4} \\}
-    {\entrytitlestyle{#2} & \entrylocationstyle{#3} & \entrydatestyle{#4} \\}
-    \multicolumn{3}{L{\textwidth}}{\descriptionstyle{#5}}
-  \end{tabular*}}%
-  {\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{10cm} C{\textwidth - 14.5cm} R{4.5cm}}
-    \ifnotempty{#1}
-    {\entrytitlestyle{#2} & & \entrylocationstyle{#3} \\
-    \entrypositionstyle{#1} & &\entrydatestyle{#4} \\}
-    {\entrytitlestyle{#2} & \entrylocationstyle{#3} & \entrydatestyle{#4} \\}
-  \end{tabular*}}%
-  % \ifnotempty{#5}{\vspace{-2.0mm}}{}
+  \ifthenelse{\boolean{awesome@compact}}
+  {
+      \ifnotempty{#5}
+      {
+          \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
+              \entrytitlestylecompact{#1 - #2\ifthenelse{\isempty{#3}}{}{, #3}} & \entrydatestyle{#4} \\
+              \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}
+          \end{tabular*}%
+      }
+      {
+          \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
+              \entrytitlestylecompact{#1 - #2\ifthenelse{\isempty{#3}}{}{, #3}} & \entrydatestyle{#4} \\
+          \end{tabular*}%
+      }
+  }
+  {
+      % Need to put this ifthen outside the tabular because multicolumn doesn't play nice.
+      \ifnotempty{#5}
+      {
+          % Be careful with newlines in the below code, they will create undesirable indents.
+          \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{10cm} C{\textwidth - 14.5cm} R{4.5cm}}
+              \entrytitlestyle{#2} & & \entrylocationstyle{#3} \\
+              \entrypositionstyle{#1} & &\entrydatestyle{#4} \\
+              \multicolumn{3}{L{\textwidth}}{\descriptionstyle{#5}}
+          \end{tabular*}
+      }%
+      {
+          \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{10cm} C{\textwidth - 14.5cm} R{4.5cm}}
+              \entrytitlestyle{#2} & & \entrylocationstyle{#3} \\
+              \entrypositionstyle{#1} & &\entrydatestyle{#4} \\
+          \end{tabular*}
+      }%
+  }
 }
 
 % Define an environment for cvsubentry
@@ -667,13 +734,13 @@
 }
 
 % Define an environment for cvhonor
-\newenvironment{cvhonors}{%
+\newenvironment{cvhonors}[1][]{%
   \vspace{\acvSectionContentTopSkip}
-  \vspace{-2mm}
+  \ifthenelse{\boolean{awesome@compact}}{}{\vspace{-2mm}}
   \begin{center}
     \setlength\tabcolsep{0pt}
     \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{1.5cm} L{\textwidth - 4.0cm} R{2.5cm}}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{#1 + 1.5cm} L{\textwidth - 4.0cm} R{2.5cm}}
 }{%
     \end{tabular*}
   \end{center}
@@ -681,7 +748,7 @@
 % Define a line of cv information(honor, award or something else)
 % Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
 \newcommand*{\cvhonor}[4]{%
-  \honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3} \\
+  \honordatestyle{#4} & \ifthenelse{\isempty{#1}}{\honorpositionstyle{#2}}{\honorpositionstyle{#1}, \honortitlestyle{#2}} & \honorlocationstyle{#3} \\
 }
 
 % Define an environment for cvskill
@@ -704,7 +771,7 @@
 
 % Define an environment for cvitems(for cventry)
 \newenvironment{cvitems}{%
-  \vspace{-4.0mm}
+  \ifthenelse{\boolean{awesome@compact}}{\vspace{-4.0mm}}{\vspace{-4.0mm}}
   \begin{justify}
   \begin{itemize}[leftmargin=2ex, nosep, noitemsep]
     \setlength{\parskip}{0pt}
@@ -712,7 +779,7 @@
 }{%
   \end{itemize}
   \end{justify}
-  \vspace{-4.0mm}
+  \ifthenelse{\boolean{awesome@compact}}{\vspace{-4.0mm}}{\vspace{-4.0mm}}
 }
 
 
