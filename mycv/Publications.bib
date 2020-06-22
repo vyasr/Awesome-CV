@@ -1,0 +1,137 @@
+%% This BibTeX bibliography file was created using BibDesk.
+%% https://bibdesk.sourceforge.io/
+
+%% Created for Vyas Ramasubramani at 2020-06-20 17:01:50 -0400 
+
+
+%% Saved with string encoding Unicode (UTF-8) 
+
+
+
+@article{Ramasubramani2020,
+	Abstract = {The freud Python package is a library for analyzing simulation data. Written with modern simulation and data analysis workflows in mind, freud provides a Python interface to fast, parallelized C++ routines that run efficiently on laptops, workstations, and supercomputing clusters. The package provides the core tools for finding particle neighbors in periodic systems, and offers a uniform API to a wide variety of methods implemented using these tools. As such, freud users can access standard methods such as the radial distribution function as well as newer, more specialized methods such as the potential of mean force and torque and local crystal environment analysis with equal ease. Rather than providing its own trajectory data structure, freud operates either directly on NumPy arrays or on trajectory data structures provided by other Python packages. This design allows freud to transparently interface with many trajectory file formats by leveraging the file parsing abilities of other trajectory management tools. By remaining agnostic to its data source, freud is suitable for analyzing any particle simulation, regardless of the original data representation or simulation method. When used for on-the-fly analysis in conjunction with scriptable simulation software such as HOOMD-blue, freud enables smart simulations that adapt to the current state of the system, allowing users to study phenomena such as nucleation and growth.
+Program summary
+Program Title: freud Program Files doi: http://dx.doi.org/10.17632/v7wmv9xcct.1 Licensing provisions: BSD 3-Clause Programming language: Python, C++ Nature of problem: Simulations of coarse-grained, nano-scale, and colloidal particle systems typically require analyses specialized to a particular system. Certain more standardized techniques -- including correlation functions, order parameters, and clustering -- are computationally intensive tasks that must be carefully implemented to scale to the larger systems common in modern simulations. Solution method: freud performs a wide variety of particle system analyses, offering a Python API that interfaces with many other tools in computational molecular sciences via NumPy array inputs and outputs. The algorithms in freud leverage parallelized C++ to scale to large systems and enable real-time analysis. The library's broad set of features encode few assumptions compared to other analysis packages, enabling analysis of a broader class of data ranging from biomolecular simulations to colloidal experiments. Additional comments including restrictions and unusual features: 1. freud provides very fast parallel implementations of standard analysis methods like RDFs and correlation functions. 2. freud includes the reference implementation for the potential of mean force and torque (PMFT). 3. freud provides various novel methods for characterizing particle environments, including the calculation of descriptors useful for machine learning. The source code is hosted on GitHub (https://github.com/glotzerlab/freud), and documentation is available online (https://freud.readthedocs.io/). The package may be installed via pip install freud-analysis or conda install -c conda-forge freud.},
+	Author = {Vyas Ramasubramani and Bradley D. Dice and Eric S. Harper and Matthew P. Spellings and Joshua A. Anderson and Sharon C. Glotzer},
+	Date-Added = {2020-06-20 16:11:33 -0400},
+	Date-Modified = {2020-06-20 16:11:58 -0400},
+	Doi = {https://doi.org/10.1016/j.cpc.2020.107275},
+	Issn = {0010-4655},
+	Journal = {Computer Physics Communications},
+	Keywords = {Simulation analysis, Molecular dynamics, Monte Carlo, Computational materials science},
+	Pages = {107275},
+	Title = {freud: A software suite for high throughput analysis of particle simulation data},
+	Url = {http://www.sciencedirect.com/science/article/pii/S0010465520300916},
+	Volume = {254},
+	Year = {2020},
+	Bdsk-Url-1 = {http://www.sciencedirect.com/science/article/pii/S0010465520300916},
+	Bdsk-Url-2 = {https://doi.org/10.1016/j.cpc.2020.107275}}
+
+@article{Dice_2019,
+	Author = {Dice, Bradley and Ramasubramani, Vyas and Harper, Eric and Spellings, Matthew and Anderson, Joshua and Glotzer, Sharon},
+	Date-Added = {2019-09-29 19:21:56 -0400},
+	Date-Modified = {2019-09-29 19:21:56 -0400},
+	Doi = {10.25080/majora-7ddc1dd1-004},
+	Journal = {Proceedings of the 18th Python in Science Conference},
+	Publisher = {SciPy},
+	Title = {Analyzing Particle Systems for Machine Learning and Data Visualization with freud},
+	Url = {http://dx.doi.org/10.25080/Majora-7ddc1dd1-004},
+	Year = {2019},
+	Bdsk-Url-1 = {http://dx.doi.org/10.25080/Majora-7ddc1dd1-004},
+	Bdsk-Url-2 = {http://dx.doi.org/10.25080/majora-7ddc1dd1-004}}
+
+@article{simon2019,
+	Author = {Simon, Anna J. and Zhou, Yi and Ramasubramani, Vyas and Glaser, Jens and Pothukuchy, Arti and Gollihar, Jimmy and Gerberich, Jillian C. and Leggere, Janelle C. and Morrow, Barrett R. and Jung, Cheulhee and et al.},
+	Date-Added = {2019-04-17 12:40:54 -0400},
+	Date-Modified = {2019-04-18 23:02:06 -0400},
+	Doi = {10.1038/s41557-018-0196-3},
+	Issn = {1755-4349},
+	Journal = {Nature Chemistry},
+	Month = {Jan},
+	Note = {Worked featured on the cover of Nature Chemistry and the front page of XSEDE.},
+	Number = {3},
+	Pages = {204--212},
+	Publisher = {Springer Nature},
+	Title = {Supercharging enables organized assembly of synthetic biomolecules},
+	Url = {http://dx.doi.org/10.1038/s41557-018-0196-3},
+	Volume = {11},
+	Year = {2019},
+	Bdsk-Url-1 = {http://dx.doi.org/10.1038/s41557-018-0196-3}}
+
+@inproceedings{vyas_ramasubramani-proc-scipy-2018,
+	Author = {Vyas Ramasubramani and Carl S. Adorf and Paul M. Dodd and Bradley D. Dice and Sharon C. Glotzer},
+	Booktitle = {Proceedings of the 17th Python in Science Conference},
+	Date-Modified = {2020-06-20 17:01:45 -0400},
+	Editor = {Fatih Akici and David Lippa and Dillon Niederhut and M Pacer},
+	Pages = {91 - 98},
+    DOI = {10.25080/Majora-4af1f417-016},
+	Title = {signac: A Python framework for data and workflow management},
+	Year = {2018}}
+
+@article{ADORF2018220,
+	Author = {Carl S. Adorf and Paul M. Dodd and Vyas Ramasubramani and Sharon C. Glotzer},
+	Date-Added = {2018-03-02 22:37:10 +0000},
+	Date-Modified = {2018-03-02 22:37:10 +0000},
+	Doi = {https://doi.org/10.1016/j.commatsci.2018.01.035},
+	Issn = {0927-0256},
+	Journal = {Computational Materials Science},
+	Keywords = {Data management, Database, Data sharing, Provenance, Computational workflow},
+	Pages = {220 - 229},
+	Title = {Simple data and workflow management with the signac framework},
+	Url = {http://www.sciencedirect.com/science/article/pii/S0927025618300429},
+	Volume = {146},
+	Year = {2018},
+	Bdsk-Url-1 = {http://www.sciencedirect.com/science/article/pii/S0927025618300429},
+	Bdsk-Url-2 = {https://doi.org/10.1016/j.commatsci.2018.01.035}}
+
+@article{Sinha:2014aa,
+	Author = {Sinha, Dhiraj and Shamayeva, Katsiaryna and Ramasubramani, Vyas and {\v R}eha, David and Bialevich, Vitali and Khabiri, Morteza and Guzanov{\'a}, Alena and Milbar, Niv and Weiserov{\'a}, Marie and Csefalvay, Eva and Carey, Jannette and Ettrich, R{\"u}diger},
+	Date-Added = {2015-10-08 02:37:18 +0000},
+	Date-Modified = {2015-10-08 02:42:32 +0000},
+	Doi = {{10.1007/s00894-014-2334-1}},
+	Eid = {2334},
+	Issn = {1610-2940},
+	Journal = {Journal of Molecular Modeling},
+	Keywords = {DNA restriction enzymes; Molecular modeling; QM/MM calculations; Principal components analysis; E. coli; Multisubunit enzyme complex; Correlated loop motions},
+	Language = {English},
+	Number = {7},
+	Publisher = {Springer Berlin Heidelberg},
+	Title = {Interdomain communication in the endonuclease/motor subunit of type {I} restriction-modification enzyme {EcoR124I}},
+	Url = {http://dx.doi.org/10.1007/s00894-014-2334-1},
+	Volume = {20},
+	Year = {2014},
+	Bdsk-Url-1 = {http://dx.doi.org/10.1007/s00894-014-2334-1}}
+
+@mastersthesis{thesis,
+	Author = {Vyas Ramasubramani},
+	Date-Added = {2013-12-27 02:00:08 +0000},
+	Date-Modified = {2013-12-27 02:02:42 +0000},
+	School = {Princeton University},
+	Title = {{{Flocculation Depletion in a Dual Drug Delivery System for Lung Cancer}}},
+	Type = {Bachelor's Thesis},
+	Year = {2013}}
+
+@article{ramasubramani2018,
+	Author = {Ramasubramani, Vyas and Glotzer, Sharon C.},
+	Journal = {The Journal of Open Source Software},
+	Pages = {787},
+	Title = {rowan: A Python package for working with quaternions},
+    DOI = {10.21105/joss.00787},
+	Volume = {3},
+	Year = {2018}}
+
+@article{adorf2018,
+	Author = {C. S. Adorf* and V. Ramasubramani* and J. A. Anderson and S. C. Glotzer},
+	Date-Modified = {2020-06-20 17:00:29 -0400},
+	Doi = {10.1109/MCSE.2018.2882355},
+	Issn = {1521-9615},
+	Journal = {Computing in Science Engineering},
+	Keywords = {Prototypes;Tools;Documentation;Chemical engineering;Best practices;Open source software},
+	Month = {March},
+	Number = {2},
+    Note = {(*these authors contributed equally to this work)},
+	Pages = {66-79},
+	Title = {How to Professionally Develop Reusable Scientific Software---And When Not To},
+	Volume = {21},
+	Year = {2019},
+	Bdsk-Url-1 = {https://doi.org/10.1109/MCSE.2018.2882355}}
