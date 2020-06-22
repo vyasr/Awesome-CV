@@ -18,9 +18,23 @@
 % CONFIGURATIONS
 %-------------------------------------------------------------------------------
 % A4 paper size by default, use 'letterpaper' for US letter
-\documentclass[11pt, a4paper]{awesome-cv}
+% Additional options:
+% outdated: Included old entries that are no longer usually relevant.
+% resume Compile a shortened resume instead of a full CV.
+% compact: Use a compact format.
+% citations: Control how citations are formatted. Options are:
+%     none: No citations (default if no argument is provided)
+%     all: All citations, publications and presentations in separate sections (default if the option is provided with no arguments).
+%     combinepubs: A single list of all publications and presentations.
+%     selectedpubs: A selected list of publications.
+\documentclass[11pt, a4paper, citations=selectedpubs]{awesome-cv}
 
 \usepackage[style=nature]{biblatex}
+\renewcommand*{\bibfont}{\fontsize{9pt}{1em}\bodyfont}
+\addbibresource{Publications.bib}
+\addbibresource{Presentations.bib}
+
+\newcommand*{\selectedpublications}{Ramasubramani2020, Dice_2019, simon2019, vyas_ramasubramani-proc-scipy-2018,adorf2018, ADORF2018220}
 
 % Configure page margins with geometry
 \geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
@@ -97,14 +111,21 @@
 %	CV/RESUME CONTENT
 %	Each section is imported separately, open each file in turn to modify content
 %-------------------------------------------------------------------------------
+% \input{cv/summary.tex}
 \input{cv/education.tex}
-\input{cv/skills.tex}
 \input{cv/researchexperience.tex}
 \input{cv/workexperience.tex}
+\input{cv/skills.tex}
 \input{cv/projects.tex}
 \input{cv/honors.tex}
 \input{cv/serviceleadership.tex}
 \input{cv/citations.tex}
+
+% \input{cv/affiliations.tex}
+% \input{cv/grants.tex}
+% \input{cv/teachingexperience.tex}
+% \input{cv/extracurricular.tex}
+% \input{cv/wetlabskills.tex}
 
 
 %-------------------------------------------------------------------------------
