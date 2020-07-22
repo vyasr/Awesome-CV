@@ -53,8 +53,6 @@
 \outdatedfalse
 \newif\ifextended
 \extendedfalse
-\newif\ifcombinepubs
-\combinepubsfalse
 
 \SetupKeyvalOptions{
     family=awesome,
@@ -77,34 +75,6 @@
 \ifthenelse{\boolean{awesome@extended}}{\extendedtrue}{}
 \newcommand*{\citations}{\awesome@citations}
 
-%%%% ORIGINAL CODE
-
-% % Options for draft or final
-% \DeclareOption{draft}{\setlength\overfullrule{5pt}}
-% \DeclareOption{final}{\setlength\overfullrule{0pt}}
-% % Inherit options of article
-% \DeclareOption*{%
-  % \PassOptionsToClass{\CurrentOption}{article}
-% }
-% % Add optional flag to include outdated entries.
-% \newif\ifoutdated
-% \outdatedfalse
-% \DeclareOption{outdated}{
-  % \outdatedtrue
-% }
-% % Add optional flag to include extended output.
-% \newif\ifextended
-% \extendedtrue
-% \DeclareOption{resume}{
-  % \extendedfalse
-% }
-% % Add flag to determine whether publications and presentations should be combined.
-% \newif\ifcombinepubs
-% \combinepubsfalse
-% \DeclareOption{combinepubs}{
-  % \combinepubstrue
-% }
-% \ProcessOptions\relax
 \LoadClass{article}
 
 
@@ -154,6 +124,7 @@
 %-------------------------------------------------------------------------------
 %                Configuration for directory locations
 %-------------------------------------------------------------------------------
+%WARNING: This configuration option doesn't actually work because it occurs too late; if a document using this class calls the function, the fontspec package is already loaded, so the files won't be found. In lieu of a better solution, for now I'm simply hardcoding the folder here.
 % Configure a directory location for fonts(default: 'fonts/')
 % \newcommand*{\fontdir}[1][fonts/]{\def\@fontdir{#1}}
 \newcommand*{\fontdir}[1][/Users/vramasub/Library/Fonts/]{\def\@fontdir{#1}}
