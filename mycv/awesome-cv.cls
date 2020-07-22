@@ -53,6 +53,8 @@
 \outdatedfalse
 \newif\ifextended
 \extendedfalse
+\newif\ifcompact
+\compactfalse
 
 \SetupKeyvalOptions{
     family=awesome,
@@ -73,6 +75,7 @@
 % Define conditionals without ampersands for safe internal use without makeatletter.
 \ifthenelse{\boolean{awesome@outdated}}{\outdatedtrue}{}
 \ifthenelse{\boolean{awesome@extended}}{\extendedtrue}{}
+\ifthenelse{\boolean{awesome@compact}}{\compacttrue}{}
 \newcommand*{\citations}{\awesome@citations}
 
 \LoadClass{article}
