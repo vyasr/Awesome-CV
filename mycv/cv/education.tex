@@ -6,6 +6,16 @@
 %	CONTENT
 %-------------------------------------------------------------------------------
 \begin{cventries}
+  \ifcompact
+  % In the extended CV, I have to hack a little to get the multiple lines to behave nicely.
+  \cventry
+    {Ph.D. in Chemical Engineering and Scientific Computing - University of Michigan\linebreak M.S. in Chemical Engineering} % Degree
+    {University of Michigan} % Institution
+    {} % Location
+    {2015 - 2020 \linebreak 2015 - 2017} % Date(s)
+    {
+    }
+  \else
   \cventry
     {Ph.D. in Chemical Engineering and Scientific Computing \linebreak M.S. in Chemical Engineering} % Degree
     {University of Michigan} % Institution
@@ -13,6 +23,7 @@
     {2015 - 2020 \linebreak 2015 - 2017} % Date(s)
     {
     }
+  \fi
 %---------------------------------------------------------
   \cventry
     {B.S.E. in Chemical Engineering} % Degree
