@@ -130,7 +130,7 @@
 %WARNING: This configuration option doesn't actually work because it occurs too late; if a document using this class calls the function, the fontspec package is already loaded, so the files won't be found. In lieu of a better solution, for now I'm simply hardcoding the folder here.
 % Configure a directory location for fonts(default: 'fonts/')
 % \newcommand*{\fontdir}[1][fonts/]{\def\@fontdir{#1}}
-\newcommand*{\fontdir}[1][/Users/vramasub/Library/Fonts/]{\def\@fontdir{#1}}
+\newcommand*{\fontdir}[1][\string~/Library/Fonts/]{\def\@fontdir{#1}}
 \fontdir
 
 
