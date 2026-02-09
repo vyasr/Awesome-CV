@@ -75,8 +75,7 @@
 \defaultfontfeatures{Ligatures=TeX}
 % Needed to manage math fonts
 \RequirePackage{unicode-math}
-% Needed to use icons from font-awesome
-\RequirePackage{fontawesome6}
+% Needed to use icons from Font Awesome 7 (system fonts)
 \RequirePackage{accsupp}
 \defaultfontfeatures{
   Renderer=HarfBuzz,
@@ -184,6 +183,56 @@
 %-------------------------------------------------------------------------------
 %                Configuration for fonts
 %-------------------------------------------------------------------------------
+% Font Awesome 7 (Free) setup
+\newcommand*{\acvFAFreeRegular}{Font Awesome 7 Free}
+\newcommand*{\acvFAFreeSolid}{Font Awesome 7 Free Solid}
+\newcommand*{\acvFABrands}{Font Awesome 7 Brands}
+
+\IfFontExistsTF{\acvFAFreeSolid}{
+  \newfontfamily\FAFreeSolid{\acvFAFreeSolid}
+  \newcommand*{\faSolidIcon}[1]{{\FAFreeSolid\symbol{#1}}}
+}{
+  \IfFontExistsTF{\acvFAFreeRegular}{
+    \newfontfamily\FAFreeSolid{\acvFAFreeRegular}
+    \newcommand*{\faSolidIcon}[1]{{\FAFreeSolid\symbol{#1}}}
+  }{
+    \newcommand*{\faSolidIcon}[1]{\textbullet}
+  }
+}
+
+\IfFontExistsTF{\acvFABrands}{
+  \newfontfamily\FABrands{\acvFABrands}
+  \newcommand*{\faBrandIcon}[1]{{\FABrands\symbol{#1}}}
+}{
+  \newcommand*{\faBrandIcon}[1]{\textbullet}
+}
+
+% Header icon aliases (FA7 Free + optional Brands)
+\newcommand*{\faMobile}{\faSolidIcon{"F3CE}}
+\newcommand*{\faEnvelope}{\faSolidIcon{"2709}}
+\newcommand*{\faCakeCandles}{\faSolidIcon{"F1FD}}
+\newcommand*{\faHouseChimney}{\faSolidIcon{"F015}}
+\newcommand*{\faGraduationCap}{\faSolidIcon{"F19D}}
+
+\newcommand*{\faSquareWhatsapp}{\faBrandIcon{"F232}}
+\newcommand*{\faSquareGithub}{\faBrandIcon{"F09B}}
+\newcommand*{\faGitlab}{\faBrandIcon{"F296}}
+\newcommand*{\faBitbucket}{\faBrandIcon{"F171}}
+\newcommand*{\faStackOverflow}{\faBrandIcon{"F16C}}
+\newcommand*{\faLinkedin}{\faBrandIcon{"F08C}}
+\newcommand*{\faOrcid}{\faBrandIcon{"F8D2}}
+\newcommand*{\faTwitter}{\faBrandIcon{"F099}}
+\newcommand*{\faXTwitter}{\faBrandIcon{"F099}}
+\newcommand*{\faMastodon}{\faBrandIcon{"F4F6}}
+\newcommand*{\faSkype}{\faBrandIcon{"F17E}}
+\newcommand*{\faReddit}{\faBrandIcon{"F1A1}}
+\newcommand*{\faResearchgate}{\faBrandIcon{"F4F8}}
+\newcommand*{\faSquareXing}{\faBrandIcon{"F169}}
+\newcommand*{\faMedium}{\faBrandIcon{"F23A}}
+\newcommand*{\faKaggle}{\faBrandIcon{"F5FA}}
+\newcommand*{\faHackerrank}{\faBrandIcon{"F5F7}}
+\newcommand*{\faTelegram}{\faBrandIcon{"F2C6}}
+
 \newcommand*{\headerfont}{\roboto\selectfont}
 \newcommand*{\headerfontlight}{\roboto\fontseries{l}\selectfont}
 \newcommand*{\footerfont}{\sffamily}
@@ -825,7 +874,7 @@
 }{%
   \end{itemize}
   \end{justify}
-  \vspace{1.0mm}
+  \par\addvspace{1mm}
 }
 
 
