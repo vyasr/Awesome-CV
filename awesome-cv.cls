@@ -32,13 +32,42 @@
 % we need \paperwidth, \paperheight and \@ptsize to be defined before loading
 % geometry and fancyhdr)
 %-------------------------------------------------------------------------------
+\newif\ifoutdated
+\outdatedfalse
+\newif\ifextended
+\extendedfalse
+\newif\ifcompact
+\compactfalse
+\newcommand*{\citations}{none}
+
 % Options for draft or final
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
-% Inherit options of article
-\DeclareOption*{%
-  \PassOptionsToClass{\CurrentOption}{article}
+\DeclareOption{outdated}{\outdatedtrue}
+\DeclareOption{extended}{\extendedtrue}
+\DeclareOption{compact}{\compacttrue}
+
+\def\acvempty{}
+\def\acvstriptrailingeq#1=#2\relax{#1}
+\def\acvparseoption#1=#2\relax{%
+  \def\acvkey{#1}%
+  \def\acvval{#2}%
+  \def\acvcitationskey{citations}%
+  \ifx\acvkey\acvcitationskey
+    \edef\citations{\expandafter\acvstriptrailingeq\acvval=\relax}%
+    \ifx\citations\acvempty
+      \def\citations{all}%
+    \fi
+  \else
+    \PassOptionsToClass{\CurrentOption}{article}%
+  \fi
 }
+
+\DeclareOption*{%
+  \edef\acvoption{\CurrentOption}%
+  \expandafter\acvparseoption\acvoption=\relax
+}
+
 \ProcessOptions\relax
 \LoadClass{article}
 
@@ -400,6 +429,12 @@
 %       would be \stackoverflow{123456}{sam-smith}
 \newcommand*{\stackoverflow}[2]{\def\@stackoverflowid{#1}\def\@stackoverflowname{#2}}
 
+% Defines writer's stackexchange profile (optional)
+% Usage: \stackexchange{<so userid>}{<so username>}
+%   e.g.https://stackexchange.com/users/123456/sam-smith
+%       would be \stackexchange{123456}{sam-smith}
+\newcommand*{\stackexchange}[2]{\def\@stackexchangeid{#1}\def\@stackexchangename{#2}}
+
 % Defines writer's linked-in (optional)
 % Usage: \linkedin{<linked-in-nick>}
 \newcommand*{\linkedin}[1]{\def\@linkedin{#1}}
@@ -643,6 +678,12 @@
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
           \href{https://stackoverflow.com/users/\@stackoverflowid}{\faAlt{StackOverflow: @\@stackoverflowname}{\faStackOverflow}{\@stackoverflowname}}%
+        }%
+      \ifthenelse{\isundefined{\@stackexchangeid}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://stackexchange.com/users/\@stackexchangeid}{\faAlt{StackExchange: @\@stackexchangename}{\faStackOverflow}{\@stackexchangename}}%
         }%
       \ifthenelse{\isundefined{\@linkedin}}%
         {}%
