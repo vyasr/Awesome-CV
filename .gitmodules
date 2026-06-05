@@ -1,0 +1,3 @@
+[submodule "mycv/data"]
+	path = mycv/data
+	url = /Users/vyasr/local/mycv

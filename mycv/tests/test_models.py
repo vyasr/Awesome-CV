@@ -20,7 +20,7 @@ from cvgen.models import (
 )
 
 DATA_PATH = Path(__file__).parent.parent / "data" / "professional.yaml"
-CONFIG_PATH = Path(__file__).parent.parent / "data" / "cv_config.yaml"
+CONFIG_PATH = Path(__file__).parent.parent / "cv_config.yaml"
 Payload: TypeAlias = dict[str, object]
 CitationMode: TypeAlias = Literal["selectedpubs", "all", "none", "combinepubs"]
 

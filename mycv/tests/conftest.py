@@ -9,9 +9,9 @@ def data_path() -> Path:
 
 @pytest.fixture
 def config_path() -> Path:
-    return Path(__file__).parent.parent / "data" / "cv_config.yaml"
+    return Path(__file__).parent.parent / "cv_config.yaml"
 
 
 @pytest.fixture
-def tmp_output(tmp_path) -> Path:
+def tmp_output(tmp_path: Path) -> Path:
     return tmp_path / "cv_output"

@@ -23,8 +23,8 @@ def main() -> None:
     _ = parser.add_argument(
         "--config",
         type=Path,
-        default=Path("data/cv_config.yaml"),
-        help="Path to CV config YAML (default: data/cv_config.yaml)",
+        default=Path("cv_config.yaml"),
+        help="Path to CV config YAML (default: cv_config.yaml)",
     )
     _ = parser.add_argument(
         "--output-dir",
