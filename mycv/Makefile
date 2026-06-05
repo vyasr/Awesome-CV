@@ -1,22 +1,34 @@
-.PHONY: examples
+# Makefile for mycv — data-driven LaTeX CV generator
+#
+# Targets:
+#   generate      - Generate .tex section files from YAML data
+#   build         - Generate + compile cv.pdf (default target)
+#   test          - Run all tests
+#   clean         - Remove LaTeX build artifacts
+#   clean-generated - Remove generated .tex files from cv/
 
-CC = xelatex
-EXAMPLES_DIR = examples
-RESUME_DIR = examples/resume
-CV_DIR = examples/cv
-# RESUME_SRCS = $(shell find $(RESUME_DIR) -name '*.tex')
-# CV_SRCS = $(shell find $(CV_DIR) -name '*.tex')
+.PHONY: all generate build test clean clean-generated
 
-examples: $(foreach x, coverletter cv resume, $x.pdf)
+# Default: build the PDF
+all: build
 
-resume.pdf: $(EXAMPLES_DIR)/resume.tex $(RESUME_SRCS)
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+# Generate section .tex files from YAML data
+generate:
+	python -m cvgen.cli --output-dir cv/
 
-cv.pdf: $(EXAMPLES_DIR)/cv.tex $(CV_SRCS)
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+# Build PDF: generate then compile
+build: generate
+	latexmk -xelatex cv.tex
 
-coverletter.pdf: $(EXAMPLES_DIR)/coverletter.tex
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+# Run test suite
+test:
+	pytest tests/ -v
 
+# Remove LaTeX build artifacts (keep .tex and .pdf)
 clean:
-	rm *.aux *.fls  *.out  *.synctex.gz *.xdv  *.fdb_latexmk *.log  *.pdf  *.bbl *.blg *.bcf *.xml
+	latexmk -c
+	rm -f cv.bbl cv.bcf cv.blg cv.run.xml
+
+# Remove generated .tex files from cv/ directory
+clean-generated:
+	rm -f cv/*.tex
