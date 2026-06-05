@@ -1,0 +1,10 @@
+{% set inner %}
+  \cvhonor
+    { {{- honor_title -}} } % Award
+    { {{- honor_issuer -}} } % Event
+    { {{- honor_location -}} } % Location
+    { {{- honor_date -}} } % Date(s)
+{% endset %}
+{% if entry_config.display == ['extended'] %}\ifextended
+{{ inner }}\fi{% elif entry_config.display == ['compact'] %}\ifcompact
+{{ inner }}\fi{% else %}{{ inner }}{% endif %}

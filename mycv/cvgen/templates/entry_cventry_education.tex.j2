@@ -1,0 +1,15 @@
+{% set details_value = entry.details if entry.details is string else (entry.details | join(', ') if entry.details else '') %}
+{% set details_content %}{% if details_value %}{\scriptsize {{ escape_latex(details_value) }}
+    }{% else %}{
+    }{% endif %}{% endset %}
+{% set inner %}
+  \cventry
+    { {{- escape_field(entry, 'degree') if entry.degree else '' -}} } % Degree
+    { {{- escape_field(entry, 'institution') -}} } % Institution
+    { {{- escape_field(entry, 'location') if entry.location else '' -}} } % Location
+    { {{- entry.start -}}{% if entry.end and entry.end != entry.start %} - {{ entry.end }}{% endif %} } % Date(s)
+    {{ details_content -}}
+{% endset %}
+{% if entry_config.display == ['extended'] %}\ifextended
+{{ inner }}\fi{% elif entry_config.display == ['compact'] %}\ifcompact
+{{ inner }}\fi{% else %}{{ inner }}{% endif %}

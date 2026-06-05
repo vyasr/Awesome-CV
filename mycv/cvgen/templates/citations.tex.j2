@@ -1,0 +1,44 @@
+% Use a conditional to determine whether all publications go together or not.
+\ifthenelse{\equal{\citations}{none}}
+% No citations
+{}
+{
+    \ifthenelse{\equal{\citations}{combinepubs}}
+    {
+        % Print a full combined bibliography.
+        \cvsection{Publications and Presentations}
+        \nocite{*}
+        \printbibliography[heading=none]
+    }
+    {
+        \ifthenelse{\equal{\citations}{selectedpubs}}
+        {
+        % Print the selected bibliography encoded by cite keys in the \selectedpublications macro.
+        \cvsection{Selected Publications}
+        \nocite{\selectedpublications}
+        \printbibliography[heading=none]
+        }
+        {
+            \ifthenelse{\equal{\citations}{all}}
+            {
+                % Print all publications and presentations in two separate lists.
+                % Use the solution proposed here:
+                % https://tex.stackexchange.com/questions/170316/nocite-for-single-bibdatasources-with-biblatex-biber
+                \begin{refsection}[Publications.bib]
+                    \cvsection{Publications}
+                    \nocite{*}
+                    \printbibliography[heading=none]
+                \end{refsection}
+
+                \begin{refsection}[Presentations.bib]
+                    \cvsection{Presentations}
+                    \nocite{*}
+                    \printbibliography[heading=none]
+                \end{refsection}
+            }
+            {
+                \PackageError{awesome-cv}{Unknown citation option passed.}{}
+            }
+        }
+    }
+}
