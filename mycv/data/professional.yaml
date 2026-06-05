@@ -273,9 +273,11 @@ skills:
       - Java
       - PHP
     formatted:
+      items:
+        latex: '\textsc{expert}: Python, C++, CUDA \quad \textsc{advanced}: C, R, MySQL, MATLAB \quad \textsc{intermediate}: Rust, Java, PHP'
     notes:
   - id: tools-frameworks
-    category: Tools & Frameworks
+    category: 'Tools & Frameworks'
     items:
       - 'Data Science & ML: scikit-learn'
       - TensorFlow
@@ -286,6 +288,8 @@ skills:
       - OpenMP
       - TBB Build systems CMake
     formatted:
+      items:
+        latex: '\textsc{Data Science \& ML}: scikit-learn, TensorFlow, pandas, NumPy, data.table, dplyr \quad \textsc{Parallelism}: MPI, OpenMP, TBB \quad \textsc{Build systems} CMake'
     notes:
 projects:
   - id: cudf
