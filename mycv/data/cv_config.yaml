@@ -83,7 +83,7 @@ sections:
         display:
           - compact
           - extended
-      - id: priate-tutor-tutor
+      - id: private-tutor-tutor
         display:
           - compact
           - extended

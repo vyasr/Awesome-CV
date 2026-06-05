@@ -1,12 +1,3 @@
-{% set date_str -%}
-{%- if entry.start and entry.end -%}
-{{ entry.start }} - {{ entry.end }}
-{%- elif entry.start -%}
-{{ entry.start }}
-{%- elif entry.end -%}
-{{ entry.end }}
-{%- endif -%}
-{%- endset %}
 {% set inner %}
   \cventry
     { {{- escape_field(entry, 'amount') if entry.amount else escape_field(entry, 'role') -}} } % Affiliation/role
