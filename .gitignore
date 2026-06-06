@@ -33,3 +33,9 @@
 *.run.xml
 *.xdv
 *.pdf
+
+## Python:
+__pycache__/
+
+## Generated CV section .tex files (from cvgen):
+mycv/cv/*.tex
