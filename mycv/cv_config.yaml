@@ -1,0 +1,116 @@
+schema_version: '1.0'
+options:
+  font_size: 11pt
+  paper_size: a4paper
+  compact: false
+theme:
+  color: awesome-emerald
+  section_color_highlight: true
+citations:
+  mode: selectedpubs
+  selected:
+  - Ramasubramani2020b
+  - Ramasubramani2020
+  - Dice_2019
+  - simon2019
+  - vyas_ramasubramani-proc-scipy-2018
+  - adorf2018
+  - ADORF2018220
+  - Sinha:2014aa
+sections:
+  education:
+    entries:
+    - id: umich-phd
+    - id: princeton-bse
+    #- id: lynbrook-high-school-degree
+    #- id: foothill-college-degree
+    #- id: johns-hopkins-university-degree
+  research_experience:
+    entries:
+    - id: umich-glotzer-group-research-assistant
+    - id: princeton-prud-homme-lab-thesis-researcher
+    - id: ascr-ettrich-lab-undergraduate-researcher
+    #- id: princeton-brynildsen-lab-undergraduate-researcher
+    #- id: princeton-stone-lab-undergraduate-researcher
+    #- id: princeton-lewis-sigler-institute-undergraduate-researcher
+    #- id: princeton-shvartsman-lab-undergraduate-researcher
+    #- id: stanford-heller-lab-undergraduate-researcher
+    #- id: ucsc-cosmos-undergraduate-researcher
+  work_experience:
+    entries:
+    - id: nvidia-senior-swe
+    - id: d-c-energy-llc-senior-financial-analyst
+    #- id: private-tutor-tutor
+    #- id: camp-galileo-summer-intern
+  skills:
+    entries:
+    - id: languages
+    - id: tools-frameworks
+  projects:
+    entries:
+    - id: cudf
+    - id: signac-framework-github-com-glotzerlab-signac
+    - id: freud-github-com-glotzerlab-freud
+    - id: hoomd-blue-github-com-glotzerlab-hoomd-blue
+    #- id: rowan-github-com-glotzerlab-rowan
+    #- id: coxeter-github-com-glotzerlab-coxeter
+    #- id: gsd-github-com-glotzerlab-gsd
+    #- id: tigerchat
+  honors:
+    entries:
+    - id: beyster-computational-innovation-fellow-university-of-michigan
+    - id: 2nd-place-micde-symposium-poster-competition
+    - id: fellow-michigan-institute-for-computational-discovery-engineering
+    - id: rackham-conference-travel-grant-university-of-michigan
+    - id: departmental-nominee-beyster-computational-innovation-fellowship
+    #- id: che-outstanding-service-award-department-of-chemical-engineering
+    #- id: 1st-place-usb-molecular-biophysics-symposium
+    #- id: national-merit-scholar-national-merit-scholarship-corporation
+    #- id: valedictorian-lynbrook-high-school
+    #- id: ap-scholar-with-distinction-college-board
+    #- id: presidential-scholarship-semifinalist-us-department-of-education
+    #- id: trustee-distinguished-scholarship-declined-rice-university
+    #- id: century-scholarship-declined-rice-university
+    #- id: grand-scholar-center-for-talented-youth
+  service_leadership:
+    entries:
+    - id: dei-student-advisory-board-board-member
+    - id: chemical-engineering-graduate-society-gsac-representative
+    - id: student-engagement-advisory-council-council-member
+    - id: chemical-engineering-graduate-recruiting-chair
+    - id: chemical-engineering-graduate-symposium-fundraising-chair
+    - id: chemical-engineering-peer-mentoring-program-peer-mentor
+    - id: um-mentorship-program-faculty-staff-mentor
+    #- id: chemical-engineering-graduate-society-representative
+    #- id: engineering-graduate-symposium-judge-recruiter
+    #- id: engineering-graduate-symposium-session-chair
+    #- id: healing-horse-clinic-bangalore-intern
+    #- id: national-honor-society-member
+  teaching_experience:
+    entries:
+    - id: umich-ann-arbor-graduate-student-instructor-che-341-fluid-mechanics
+    - id: princeton-course-developer-cbe-439-quantitative-physiology-tissue-design
+  #grants:
+  #  entries:
+  #  - id: incite-proposal-pi-sharon-glotzer-jan-2019
+  #  - id: xsede-proposal-pi-sharon-glotzer-jan-2018
+  #  - id: xsede-proposal-pi-sharon-glotzer-jan-2017
+  #  - id: xsede-proposal-pi-jens-glaser-aug-2016
+  #extracurricular:
+  #  entries:
+  #  - id: life-sciences-orchestra-2nd-trombone
+  #  - id: princeton-orchestra-trombone-bass-trombone
+  #  - id: daily-princetonian-senior-sports-writer
+  #  - id: american-foreign-policy-contributor
+  #  - id: lynbrook-varsity-tennis-captain
+  #  - id: california-youth-symphony-lead-trombone
+  #affiliations:
+  #  entries:
+  #  - id: society-of-industrial-and-applied-mathematics-siam
+  #  - id: american-physical-society
+  #  - id: american-chemical-society
+  #  - id: american-institute-of-chemical-engineers-aiche
+  #wetlab_skills:
+  #  entries:
+  #  - id: biology-techniques
+  #  - id: chemistry-techniques

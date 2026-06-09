@@ -1,0 +1,120 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for CV/Resume
+%
+% This template has been downloaded from:
+% https://github.com/posquit0/Awesome-CV
+%
+% Author:
+% Claud D. Park <posquit0.bj@gmail.com>
+% http://www.posquit0.com
+%
+% Template license:
+% CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+%
+
+
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+% Document class options:
+%   font_size: 10pt, 11pt, 12pt
+%   paper_size: a4paper, letterpaper
+%   compact: Use a compact format.
+%   citations: Control how citations are formatted. Options are:
+%       none: No citations (default if no argument is provided)
+%       all: All citations, publications and presentations in separate sections.
+%       combinepubs: A single list of all publications and presentations.
+%       selectedpubs: A selected list of publications.
+\documentclass[{{ options.font_size }}, {{ options.paper_size }}, citations={{ citations_mode }}{% if options.compact %}, compact{% endif %}]{awesome-cv}
+
+\usepackage[style=nature]{biblatex}
+\renewcommand*{\bibfont}{\fontsize{9pt}{1em}\bodyfont}
+\addbibresource{data/Publications.bib}
+\addbibresource{data/Presentations.bib}
+
+\input{cv/selected_pubs.tex}
+
+% Configure page margins with geometry
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+% Specify the location of the included fonts
+% \fontdir{/Users/vramasub/Library/Fonts/}
+
+% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+\colorlet{awesome}{ {{- theme.color -}} }
+
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{ {{- 'true' if theme.section_color_highlight else 'false' -}} }
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+
+%-------------------------------------------------------------------------------
+%	PERSONAL INFORMATION
+%	Comment any of the lines below if they are not required
+%-------------------------------------------------------------------------------
+% Available options: circle|rectangle,edge/noedge,left/right
+{% if personal_info and personal_info.photo %}\photo{ {{- personal_info.photo -}} }
+{% endif %}
+{% if personal_info %}
+\name{ {{- personal_info.first_name if personal_info.first_name else '' -}} }{ {{- personal_info.last_name if personal_info.last_name else '' -}} }
+{% if personal_info.position %}\position{ {{- personal_info.position -}} }
+{% endif %}
+{% if personal_info.address %}\address{ {{- personal_info.address -}} }
+{% endif %}
+{% if personal_info.phone %}\mobile{ {{- personal_info.phone -}} }
+{% endif %}
+\email{ {{- personal_info.email -}} }
+{% if personal_info.website %}\homepage{ {{- personal_info.website -}} }
+{% endif %}
+{% if personal_info.github %}\github{ {{- personal_info.github -}} }
+{% endif %}
+{% if personal_info.linkedin %}\linkedin{ {{- personal_info.linkedin -}} }
+{% endif %}
+{% if personal_info.gitlab %}\gitlab{ {{- personal_info.gitlab -}} }
+{% endif %}
+{% if personal_info.stackexchange %}\stackexchange{ {{- personal_info.stackexchange.id -}} }{ {{- personal_info.stackexchange.name -}} }
+{% endif %}
+{% if personal_info.googlescholar %}\googlescholar{ {{- personal_info.googlescholar.id -}} }{ {{- personal_info.googlescholar.name -}} }
+{% endif %}
+{% endif %}
+
+% \quote{``Be the change that you want to see in the world."}
+
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+% Print the header with above personal informations
+% Give optional argument to change alignment(C: center, L: left, R: right)
+\makecvheader[C]
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+% Leave any of these blank if they are not needed
+\makecvfooter
+  {\today}
+  { {{- personal_info.name if personal_info else '' -}} }
+  {\thepage}
+
+
+%-------------------------------------------------------------------------------
+%	CV/RESUME CONTENT
+%	Each section is imported separately, open each file in turn to modify content
+%-------------------------------------------------------------------------------
+{% for section in active_sections %}
+\input{cv/{{ section }}}
+{% endfor %}
+
+%-------------------------------------------------------------------------------
+\end{document}

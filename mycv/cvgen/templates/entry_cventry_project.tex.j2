@@ -1,0 +1,15 @@
+{% set inner %}
+  \cventry
+    { {{- escape_field(entry, 'summary') if entry.summary else '' -}} } % Role
+    { {{- escape_field(entry, 'name') -}} } % Event
+    {} % Location
+    {} % Date(s)
+    {% if entry.bullets %}{
+      \begin{cvitems} % Description(s)
+{% for bullet in entry.bullets %}
+        \item {{ bullet }}
+{% endfor %}
+      \end{cvitems}
+    }{% else %}{}{% endif %}
+{% endset %}
+{{ inner }}

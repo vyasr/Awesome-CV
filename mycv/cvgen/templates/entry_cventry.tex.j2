@@ -1,0 +1,24 @@
+{% set date_str -%}
+{%- if entry.start and entry.end -%}
+{{ entry.start }} - {{ entry.end }}
+{%- elif entry.start -%}
+{{ entry.start }}
+{%- elif entry.end -%}
+{{ entry.end }}
+{%- endif -%}
+{%- endset %}
+{% set inner %}
+  \cventry
+    { {{- escape_field(entry, 'role') -}} } % Job title
+    { {{- escape_field(entry, 'organization') -}} } % Organization
+    { {{- escape_field(entry, 'location') if entry.location else '' -}} } % Location
+    { {{- date_str -}} } % Date(s)
+    {% if entry.bullets %}{
+      \begin{cvitems} % Description(s) of tasks/responsibilities
+{% for bullet in entry.bullets %}
+        \item {{ bullet }}
+{% endfor %}
+      \end{cvitems}
+    }{% else %}{}{% endif %}
+{% endset %}
+{{ inner }}

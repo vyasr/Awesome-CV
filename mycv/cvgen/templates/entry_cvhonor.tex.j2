@@ -1,0 +1,8 @@
+{% set inner %}
+  \cvhonor
+    { {{- honor_title -}} } % Award
+    { {{- honor_issuer -}} } % Event
+    { {{- honor_location -}} } % Location
+    { {{- honor_date -}} } % Date(s)
+{% endset %}
+{{ inner }}

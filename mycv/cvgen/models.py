@@ -1,0 +1,112 @@
+from __future__ import annotations
+
+from typing import ClassVar, Literal
+
+from pydantic import BaseModel, ConfigDict, Field, field_validator
+
+# Data models now live in the professional_data package
+from professional_data.schema import (  # pyright: ignore[reportMissingTypeStubs]
+    Affiliation,
+    Education,
+    Experience,
+    Grant,
+    Honor,
+    PersonalInfo,
+    PresentationRef,
+    ProfessionalData,
+    Project,
+    PublicationRef,
+    Service,
+    Skill,
+    Summary,
+)
+
+__all__ = [
+    "ProfessionalData",
+    "PersonalInfo",
+    "Education",
+    "Experience",
+    "Project",
+    "Honor",
+    "Service",
+    "Skill",
+    "Grant",
+    "Affiliation",
+    "Summary",
+    "PublicationRef",
+    "PresentationRef",
+    "CVConfigBase",
+    "EntryConfig",
+    "SectionConfig",
+    "SectionsConfig",
+    "CitationsConfig",
+    "CVOptions",
+    "CVTheme",
+    "CVConfigRoot",
+]
+
+
+class CVConfigBase(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(extra="forbid")
+
+
+class EntryConfig(CVConfigBase):
+    id: str
+
+
+class SectionConfig(CVConfigBase):
+    entries: list[EntryConfig] = Field(default_factory=list)
+
+
+class SectionsConfig(CVConfigBase):
+    education: SectionConfig | None = None
+    research_experience: SectionConfig | None = None
+    work_experience: SectionConfig | None = None
+    skills: SectionConfig | None = None
+    projects: SectionConfig | None = None
+    honors: SectionConfig | None = None
+    service_leadership: SectionConfig | None = None
+    teaching_experience: SectionConfig | None = None
+    grants: SectionConfig | None = None
+    extracurricular: SectionConfig | None = None
+    affiliations: SectionConfig | None = None
+    wetlab_skills: SectionConfig | None = None
+
+
+class CitationsConfig(CVConfigBase):
+    mode: Literal["selectedpubs", "all", "none", "combinepubs"]
+    selected: list[str] = Field(default_factory=list)
+
+
+class CVOptions(CVConfigBase):
+    font_size: Literal["10pt", "11pt", "12pt"] = "11pt"
+    paper_size: Literal["a4paper", "letterpaper"] = "a4paper"
+    compact: bool = False
+
+
+class CVTheme(CVConfigBase):
+    color: Literal[
+        "awesome-emerald",
+        "awesome-skyblue",
+        "awesome-red",
+        "awesome-pink",
+        "awesome-orange",
+        "awesome-nephritis",
+        "awesome-concrete",
+        "awesome-darknight",
+    ] = "awesome-emerald"
+    section_color_highlight: bool = True
+
+class CVConfigRoot(CVConfigBase):
+    schema_version: str
+    citations: CitationsConfig
+    sections: SectionsConfig
+    options: CVOptions = Field(default_factory=CVOptions)
+    theme: CVTheme = Field(default_factory=CVTheme)
+
+    @field_validator("schema_version")
+    @classmethod
+    def validate_schema_version(cls, value: str) -> str:
+        if value != "1.0":
+            raise ValueError("schema_version must be '1.0'")
+        return value

@@ -1,0 +1,15 @@
+{% set inner %}
+  \cventry
+    { {{- escape_field(entry, 'amount') if entry.amount else escape_field(entry, 'role') -}} } % Affiliation/role
+    { {{- escape_field(entry, 'title') -}} } % Organization/group
+    { {{- escape_field(entry, 'funder') -}} } % Location
+    { {{- date_str -}} } % Date(s)
+    {
+      \begin{cvitems}
+{% for detail in entry.details %}
+        \item {{ detail }}
+{% endfor %}
+      \end{cvitems}
+    }
+{% endset %}
+{{ inner }}

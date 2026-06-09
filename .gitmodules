@@ -1,0 +1,4 @@
+[submodule "mycv/data"]
+	path = mycv/data
+	url = git@github.com:vyasr/cv_data.git
+	branch = main
