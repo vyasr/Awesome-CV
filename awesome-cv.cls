@@ -32,13 +32,36 @@
 % we need \paperwidth, \paperheight and \@ptsize to be defined before loading
 % geometry and fancyhdr)
 %-------------------------------------------------------------------------------
+\newif\ifcompact
+\compactfalse
+\newcommand*{\citations}{none}
+
 % Options for draft or final
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
-% Inherit options of article
-\DeclareOption*{%
-  \PassOptionsToClass{\CurrentOption}{article}
+\DeclareOption{compact}{\compacttrue}
+
+\def\acvempty{}
+\def\acvstriptrailingeq#1=#2\relax{#1}
+\def\acvparseoption#1=#2\relax{%
+  \def\acvkey{#1}%
+  \def\acvval{#2}%
+  \def\acvcitationskey{citations}%
+  \ifx\acvkey\acvcitationskey
+    \edef\citations{\expandafter\acvstriptrailingeq\acvval=\relax}%
+    \ifx\citations\acvempty
+      \def\citations{all}%
+    \fi
+  \else
+    \PassOptionsToClass{\CurrentOption}{article}%
+  \fi
 }
+
+\DeclareOption*{%
+  \edef\acvoption{\CurrentOption}%
+  \expandafter\acvparseoption\acvoption=\relax
+}
+
 \ProcessOptions\relax
 \LoadClass{article}
 
@@ -75,8 +98,7 @@
 \defaultfontfeatures{Ligatures=TeX}
 % Needed to manage math fonts
 \RequirePackage{unicode-math}
-% Needed to use icons from font-awesome
-\RequirePackage{fontawesome6}
+% Needed to use icons from Font Awesome 7 (system fonts)
 \RequirePackage{accsupp}
 \defaultfontfeatures{
   Renderer=HarfBuzz,
@@ -184,6 +206,80 @@
 %-------------------------------------------------------------------------------
 %                Configuration for fonts
 %-------------------------------------------------------------------------------
+% Font Awesome 7 (Free) setup
+\newcommand*{\acvFAFreeRegular}{Font Awesome 7 Free}
+\newcommand*{\acvFAFreeSolid}{Font Awesome 7 Free Solid}
+\newcommand*{\acvFABrands}{Font Awesome 7 Brands}
+\newcommand*{\acvFABrandsRegular}{Font Awesome 7 Brands Regular}
+\newcommand*{\acvFAOldBrands}{Font Awesome 6 Brands}
+\newcommand*{\acvFAOldBrandsRegular}{Font Awesome 6 Brands Regular}
+\newcommand*{\acvFABrandsFile}{/Users/vyasr/Library/Fonts/Font Awesome 7 Brands-Regular-400.otf}
+
+\IfFontExistsTF{\acvFAFreeSolid}{
+  \newfontfamily\FAFreeSolid{\acvFAFreeSolid}
+  \newcommand*{\faSolidIcon}[1]{{\FAFreeSolid\symbol{#1}}}
+}{
+  \IfFontExistsTF{\acvFAFreeRegular}{
+    \newfontfamily\FAFreeSolid{\acvFAFreeRegular}
+    \newcommand*{\faSolidIcon}[1]{{\FAFreeSolid\symbol{#1}}}
+  }{
+    \newcommand*{\faSolidIcon}[1]{\textbullet}
+  }
+}
+
+\IfFontExistsTF{\acvFABrands}{
+  \newfontfamily\FABrands{\acvFABrands}
+  \newcommand*{\faBrandIcon}[1]{{\FABrands\symbol{#1}}}
+}{
+  \IfFontExistsTF{\acvFABrandsRegular}{
+    \newfontfamily\FABrands{\acvFABrandsRegular}
+    \newcommand*{\faBrandIcon}[1]{{\FABrands\symbol{#1}}}
+  }{
+    \IfFontExistsTF{\acvFAOldBrands}{
+      \newfontfamily\FABrands{\acvFAOldBrands}
+      \newcommand*{\faBrandIcon}[1]{{\FABrands\symbol{#1}}}
+    }{
+      \IfFontExistsTF{\acvFAOldBrandsRegular}{
+        \newfontfamily\FABrands{\acvFAOldBrandsRegular}
+        \newcommand*{\faBrandIcon}[1]{{\FABrands\symbol{#1}}}
+      }{
+        \IfFileExists{\acvFABrandsFile}{
+          \newfontfamily\FABrands{\acvFABrandsFile}
+          \newcommand*{\faBrandIcon}[1]{{\FABrands\symbol{#1}}}
+        }{
+          \newcommand*{\faBrandIcon}[1]{\textbullet}
+        }
+      }
+    }
+  }
+}
+
+% Header icon aliases (FA7 Free + optional Brands)
+\newcommand*{\faMobile}{\faSolidIcon{"F3CE}}
+\newcommand*{\faEnvelope}{\faSolidIcon{"2709}}
+\newcommand*{\faCakeCandles}{\faSolidIcon{"F1FD}}
+\newcommand*{\faHouseChimney}{\faSolidIcon{"F015}}
+\newcommand*{\faGraduationCap}{\faSolidIcon{"F19D}}
+
+\newcommand*{\faSquareWhatsapp}{\faBrandIcon{"F232}}
+\newcommand*{\faSquareGithub}{\faBrandIcon{"F09B}}
+\newcommand*{\faGitlab}{\faBrandIcon{"F296}}
+\newcommand*{\faBitbucket}{\faBrandIcon{"F171}}
+\newcommand*{\faStackOverflow}{\faBrandIcon{"F16C}}
+\newcommand*{\faLinkedin}{\faBrandIcon{"F08C}}
+\newcommand*{\faOrcid}{\faBrandIcon{"F8D2}}
+\newcommand*{\faTwitter}{\faBrandIcon{"F099}}
+\newcommand*{\faXTwitter}{\faBrandIcon{"F099}}
+\newcommand*{\faMastodon}{\faBrandIcon{"F4F6}}
+\newcommand*{\faSkype}{\faBrandIcon{"F17E}}
+\newcommand*{\faReddit}{\faBrandIcon{"F1A1}}
+\newcommand*{\faResearchgate}{\faBrandIcon{"F4F8}}
+\newcommand*{\faSquareXing}{\faBrandIcon{"F169}}
+\newcommand*{\faMedium}{\faBrandIcon{"F23A}}
+\newcommand*{\faKaggle}{\faBrandIcon{"F5FA}}
+\newcommand*{\faHackerrank}{\faBrandIcon{"F5F7}}
+\newcommand*{\faTelegram}{\faBrandIcon{"F2C6}}
+
 \newcommand*{\headerfont}{\roboto\selectfont}
 \newcommand*{\headerfontlight}{\roboto\fontseries{l}\selectfont}
 \newcommand*{\footerfont}{\sffamily}
@@ -350,6 +446,12 @@
 %   e.g.https://stackoverflow.com/users/123456/sam-smith
 %       would be \stackoverflow{123456}{sam-smith}
 \newcommand*{\stackoverflow}[2]{\def\@stackoverflowid{#1}\def\@stackoverflowname{#2}}
+
+% Defines writer's stackexchange profile (optional)
+% Usage: \stackexchange{<so userid>}{<so username>}
+%   e.g.https://stackexchange.com/users/123456/sam-smith
+%       would be \stackexchange{123456}{sam-smith}
+\newcommand*{\stackexchange}[2]{\def\@stackexchangeid{#1}\def\@stackexchangename{#2}}
 
 % Defines writer's linked-in (optional)
 % Usage: \linkedin{<linked-in-nick>}
@@ -595,6 +697,12 @@
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
           \href{https://stackoverflow.com/users/\@stackoverflowid}{\faAlt{StackOverflow: @\@stackoverflowname}{\faStackOverflow}{\@stackoverflowname}}%
         }%
+      \ifthenelse{\isundefined{\@stackexchangeid}}%
+        {}%
+        {%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
+          \href{https://stackexchange.com/users/\@stackexchangeid}{\faAlt{StackExchange: @\@stackexchangename}{\faStackOverflow}{\@stackexchangename}}%
+        }%
       \ifthenelse{\isundefined{\@linkedin}}%
         {}%
         {%
@@ -734,22 +842,31 @@
 
 % Define an environment for cventry
 \newenvironment{cventries}{%
-  \vspace{\acvSectionContentTopSkip}
-  \begin{center}
+  \vspace{\acvSectionContentTopSkip}%
+  \begin{center}%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{0pt}%
 }{%
-  \end{center}
+  \par
+  \end{center}%
 }
 % Define an entry of cv information
 % Usage: \cventry{<position>}{<title>}{<location>}{<date>}{<description>}
 \newcommand*{\cventry}[5]{%
-  \vspace{-2.0mm}
+  \ifempty{#1}
+    {\vspace{-1.0mm}}
+    {\ifstrempty{#5}
+      {\vspace{-0.5mm}}
+      {\vspace{-1.0mm}}}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
     \ifempty{#2#3}
       {\entrypositionstyle{#1} & \entrydatestyle{#4} \\}
-      {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
-      \entrypositionstyle{#1} & \entrydatestyle{#4} \\}
+      {\ifempty{#1}
+        {\entrytitlestyle{#2} & \entrydatestyle{#4} \\}
+        {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\[-0.5mm]
+        \entrypositionstyle{#1} & \entrydatestyle{#4} \\}}
     \ifstrempty{#5}
       {}
       {\multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}} \\}
@@ -781,13 +898,13 @@
 }
 
 % Define an environment for cvhonor
-\newenvironment{cvhonors}{%
+\newenvironment{cvhonors}[1][1.5cm]{%
   \vspace{\acvSectionContentTopSkip}
   \vspace{-2mm}
   \begin{center}
     \setlength\tabcolsep{0pt}
     \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{1.5cm} L{\textwidth - 4.0cm} R{2.5cm}}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{#1 + 1.5cm} L{\textwidth - 4.0cm} R{2.5cm}}
 }{%
     \end{tabular*}
   \end{center}
@@ -795,7 +912,9 @@
 % Define a line of cv information(honor, award or something else)
 % Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
 \newcommand*{\cvhonor}[4]{%
-  \honordatestyle{#4} & \honorpositionstyle{#1}\ifempty{#2}{}{,} \honortitlestyle{#2} & \honorlocationstyle{#3} \\
+  \ifempty{#1}
+    {\honordatestyle{#4} & \honortitlestyle{#2} & \honorlocationstyle{#3} \\}
+    {\honordatestyle{#4} & \honorpositionstyle{#1}\ifempty{#2}{}{,} \honortitlestyle{#2} & \honorlocationstyle{#3} \\}
 }
 
 % Define an environment for cvskill
@@ -825,7 +944,7 @@
 }{%
   \end{itemize}
   \end{justify}
-  \vspace{1.0mm}
+  \par\addvspace{1mm}
 }
 
 

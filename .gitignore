@@ -21,3 +21,22 @@
 ## Mac OS X metadata files:
 *.DS_Store
 
+### Fork-specific ###
+## Sisyphus planning agent:
+.sisyphus/
+
+## Additional TeX build artifacts (mycv/):
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.run.xml
+*.xdv
+*.pdf
+
+## Python:
+__pycache__/
+
+## Generated CV files (from cvgen):
+mycv/cv.tex
+mycv/cv/*.tex
