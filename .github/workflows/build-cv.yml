@@ -47,7 +47,7 @@ jobs:
 
       - name: Run tests
         working-directory: mycv
-        run: make test
+        run: make generate test
 
       - name: Build PDF
         working-directory: mycv
