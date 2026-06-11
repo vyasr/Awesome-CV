@@ -96,37 +96,37 @@
 \RequirePackage[quiet]{fontspec}
 % To support LaTeX quoting style
 \defaultfontfeatures{Ligatures=TeX}
-% Needed to manage math fonts
-\RequirePackage{unicode-math}
 % Needed to use icons from Font Awesome 7 (system fonts)
 \RequirePackage{accsupp}
-\defaultfontfeatures{
-  Renderer=HarfBuzz,
-}
-\setmainfont{Source Sans 3}[
-  UprightFont=*,
-  ItalicFont=* Italic,
-  BoldFont=* Bold,
-  BoldItalicFont=* Bold Italic,
-  FontFace={l}{n}{Font=* Light},
-  FontFace={l}{it}{Font=* Light Italic},
+\setmainfont{SourceSans3}[
+  Extension=.otf,
+  UprightFont=*-Regular,
+  ItalicFont=*-RegularIt,
+  BoldFont=*-Bold,
+  BoldItalicFont=*-BoldIt,
+  FontFace={l}{n}{Font=*-Light},
+  FontFace={l}{it}{Font=*-LightIt},
 ]
-\setsansfont{Source Sans 3}[
-  UprightFont=*,
-  ItalicFont=* Italic,
-  BoldFont=* Bold,
-  BoldItalicFont=* Bold Italic,
-  FontFace={l}{n}{Font=* Light},
-  FontFace={l}{it}{Font=* Light Italic},
+\setsansfont{SourceSans3}[
+  Extension=.otf,
+  UprightFont=*-Regular,
+  ItalicFont=*-RegularIt,
+  BoldFont=*-Bold,
+  BoldItalicFont=*-BoldIt,
+  FontFace={l}{n}{Font=*-Light},
+  FontFace={l}{it}{Font=*-LightIt},
 ]
 \newfontfamily\roboto{Roboto}[
-  UprightFont=*,
-  ItalicFont=* Italic,
-  BoldFont=* Bold,
-  BoldItalicFont=* Bold Italic,
-  FontFace={l}{n}{Font=* Light},
-  FontFace={l}{it}{Font=* Light Italic},
+  Extension=.otf,
+  UprightFont=*-Regular,
+  ItalicFont=*-Italic,
+  BoldFont=*-Bold,
+  BoldItalicFont=*-BoldItalic,
+  FontFace={l}{n}{Font=*-Light},
+  FontFace={l}{it}{Font=*-LightItalic},
 ]
+% Needed to manage math fonts (loaded after text fonts to avoid interference)
+\RequirePackage{unicode-math}
 % Needed for the photo ID
 \RequirePackage[skins]{tcolorbox}
 % Needed to deal a paragraphs
@@ -213,7 +213,9 @@
 \newcommand*{\acvFABrandsRegular}{Font Awesome 7 Brands Regular}
 \newcommand*{\acvFAOldBrands}{Font Awesome 6 Brands}
 \newcommand*{\acvFAOldBrandsRegular}{Font Awesome 6 Brands Regular}
-\newcommand*{\acvFABrandsFile}{/Users/vyasr/Library/Fonts/Font Awesome 7 Brands-Regular-400.otf}
+\newcommand*{\acvFABrandsFile}{Font Awesome 7 Brands-Regular-400.otf}
+\newcommand*{\acvFAFreeSolidFile}{Font Awesome 7 Free-Solid-900.otf}
+\newcommand*{\acvFAFreeRegularFile}{Font Awesome 7 Free-Regular-400.otf}
 
 \IfFontExistsTF{\acvFAFreeSolid}{
   \newfontfamily\FAFreeSolid{\acvFAFreeSolid}
@@ -223,7 +225,17 @@
     \newfontfamily\FAFreeSolid{\acvFAFreeRegular}
     \newcommand*{\faSolidIcon}[1]{{\FAFreeSolid\symbol{#1}}}
   }{
-    \newcommand*{\faSolidIcon}[1]{\textbullet}
+    \IfFileExists{\acvFAFreeSolidFile}{
+      \newfontfamily\FAFreeSolid[Path=./]{\acvFAFreeSolidFile}
+      \newcommand*{\faSolidIcon}[1]{{\FAFreeSolid\symbol{#1}}}
+    }{
+      \IfFileExists{\acvFAFreeRegularFile}{
+        \newfontfamily\FAFreeSolid[Path=./]{\acvFAFreeRegularFile}
+        \newcommand*{\faSolidIcon}[1]{{\FAFreeSolid\symbol{#1}}}
+      }{
+        \newcommand*{\faSolidIcon}[1]{\textbullet}
+      }
+    }
   }
 }
 
@@ -244,7 +256,7 @@
         \newcommand*{\faBrandIcon}[1]{{\FABrands\symbol{#1}}}
       }{
         \IfFileExists{\acvFABrandsFile}{
-          \newfontfamily\FABrands{\acvFABrandsFile}
+          \newfontfamily\FABrands[Path=./]{\acvFABrandsFile}
           \newcommand*{\faBrandIcon}[1]{{\FABrands\symbol{#1}}}
         }{
           \newcommand*{\faBrandIcon}[1]{\textbullet}

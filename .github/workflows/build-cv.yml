@@ -33,11 +33,10 @@ jobs:
 
       - name: Install fonts
         run: |
-          apt update
-          apt install --yes \
-            fonts-roboto \
-            fonts-adobe-sourcesans3 \
-            ;
+          # TeX Live 2026 includes Source Sans 3, Roboto, and Font Awesome 7.
+          # Symlink TeX Live fonts into fontconfig search path for XeTeX discovery.
+          ln -sf /usr/local/texlive/2026/texmf-dist/fonts/opentype /usr/share/fonts/texlive-opentype
+          fc-cache -f
 
       - name: Setup Python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
