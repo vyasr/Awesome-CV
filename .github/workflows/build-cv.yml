@@ -14,9 +14,11 @@ on:
       - main
     paths:
       - "mycv/**"
+      - ".github/workflows/**"
   pull_request:
     paths:
       - "mycv/**"
+      - ".github/workflows/**"
 
 jobs:
   build:
