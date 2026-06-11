@@ -8,6 +8,7 @@ name: Build CV
 #                      (e.g. /home/wkngyomy/public_html/website_8a95d627/)
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
