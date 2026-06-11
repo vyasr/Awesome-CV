@@ -14,10 +14,12 @@ on:
       - main
     paths:
       - "mycv/**"
+      - "awesome-cv.cls"
       - ".github/workflows/**"
   pull_request:
     paths:
       - "mycv/**"
+      - "awesome-cv.cls"
       - ".github/workflows/**"
 
 jobs:
